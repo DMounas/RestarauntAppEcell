@@ -95,6 +95,7 @@ class _InventoryListScreenState extends State<InventoryListScreen> {
           ),
         ],
       ),
+<<<<<<< HEAD
       body: Column(
         children: [
           // --- 1. NEW FILTER BAR ---
@@ -137,6 +138,32 @@ class _InventoryListScreenState extends State<InventoryListScreen> {
               ],
             ),
           ),
+=======
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              SizedBox(
+                height: 50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: ['All', ...(_allCategories..sort())].length, // Now correctly defined
+                  itemBuilder: (context, index) {
+                    final category = ['All', ...(_allCategories..sort())][index]; // Now correctly defined
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: ChoiceChip(
+                        label: Text(category),
+                        labelPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        selected: category == _selectedCategory,
+                        onSelected: (selected) => setState(() => _selectedCategory = category),
+                      ),
+                    );
+                  },
+                ),
+              ),
+>>>>>>> upstream/main
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
@@ -166,10 +193,37 @@ class _InventoryListScreenState extends State<InventoryListScreen> {
               ),
             ],
           ),
+<<<<<<< HEAD
           floatingActionButton: FloatingActionButton(
         onPressed: _navigateToAddItemScreen,
         tooltip: 'Add Menu Item',
         child: const Icon(Icons.add),
+=======
+          Positioned(
+            bottom: 16,
+            left: 16,
+            right: 16,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FloatingActionButton.extended(
+                  onPressed: () => setState(() => _showVegOnly = !_showVegOnly),
+                  icon: Icon(Icons.eco, color: _showVegOnly ? Colors.white : Colors.green),
+                  label: Text('Veg Only', style: TextStyle(color: _showVegOnly ? Colors.white : Colors.black)),
+                  backgroundColor: _showVegOnly ? Colors.green : Colors.white,
+                  heroTag: 'vegToggle',
+                ),
+                FloatingActionButton(
+                  onPressed: _navigateToAddItemScreen,
+                  tooltip: 'Add Menu Item',
+                  child: const Icon(Icons.add),
+                  heroTag: 'addItem',
+                ),
+              ],
+            ),
+          )
+        ],
+>>>>>>> upstream/main
       ),
     );
   }
